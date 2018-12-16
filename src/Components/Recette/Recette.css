@@ -1,0 +1,39 @@
+body p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.title-recette, .etapes {
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 101, 0, 0.9) !important;
+}
+
+h5, ul, li , .details{
+  color: #FFF !important;
+  font-family: 'Lato', sans-serif;
+}
+
+div.card-body {
+  padding: 0 !important;
+}
+
+.details {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.description {
+  background-color: #1C2036;
+}
+
+.marmite {
+  width: 45px;
+  display: flex;
+  margin: auto;
+  margin-bottom: 45px;
+}
+
