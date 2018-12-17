@@ -25,6 +25,7 @@ class Recette extends Component {
       <div >
         <Card body inverse style={{ background: "#1C2036" ,borderColor: '#FFF' }} className="view overlay zoom">
           <CardImg top src={this.props.picture} alt='recette picture' width= "500" className="img-fluid" />
+            <img src={this.props.icon} className="icon mt-3"/>
           <CardBody>
           <CardTitle className="title-recette mt-3">{this.props.title}</CardTitle>
             <div className="d-flex justify-content-center align-items-center">

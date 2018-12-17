@@ -34,6 +34,8 @@ class Recipes extends Component {
             ingredients={recette.ingredients}
             instructions={recette.instructions}
             temps={recette.temps}
+            saison={recette.saison}
+            icon={recette.icon}
           />
         ))}
       </div>
