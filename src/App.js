@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navigation from './Components/Navigation/Navigation';
-import MainJumbotron from './Components/MainJumbotron/MainJumbotron';
 import Recipes from './Components/Recipes/Recipes';
 // import Login from './Components/Login/Login';
 
@@ -10,9 +9,8 @@ class App extends Component {
   render() {
     return (
       <div >
-        <Navigation />
+        {/* <Navigation /> */}
         {/* <Login /> */}
-        <MainJumbotron />
         <Recipes />
       </div>
     );

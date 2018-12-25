@@ -21,7 +21,7 @@ app.all('/*', function(req, res, next) {
   }
 });
 
-
+// SCHEMA
 let recipeSchema = Schema({
   title:  String,
   picture: String,
@@ -32,35 +32,57 @@ let recipeSchema = Schema({
   icon: String
 });
 
+//  MODEL
 let recipeModel = mongoose.model('recettes', recipeSchema);
 
+// ROUTES
 app.get('/recettes', function(req, res) {
   recipeModel.find((error, feeds) => {
+    console.log(feeds)
     if (error) throw error;
-    res.send({ feeds });
+    res.send(feeds);
   });
 })
 
-app.get('/title', function(req, res) {
-  
+app.get('/title/:title', function(req, res) {
+  recipeModel.find({"title": req.params.title},(error, result) => {
+    console.log(req.params.title)
+    if (error) throw error;
+    res.send(result);
+  });
 })
 
-// app.post('/account/create', function(req, res) {
-//   console.log(req.body.email);
-// })
+app.get('/saison/:saison', function(req, res) {
+  recipeModel.find({"saison": req.params.saison},(error, result) => {
+    console.log(req.params.saison)
+    if (error) throw error;
+    res.send(result);
+  });
+})
 
+app.get('/legume/:legume', function(req, res) {
+  recipeModel.find({"legume": req.params.legume},(error, result) => {
+    console.log(req.params.legume)
+    if (error) throw error;
+    res.send(result);
+  });
+})
+
+//  LISTEN
 app.listen(port, function() {
-  let test = recipeModel.find({});
 })
+
+
 
 //  INSERT DATA:
-  //   {"title":"Petits pois au chorizo",
+
+  // "title":"Petits pois au chorizo",
   // "picture":"https://i.ibb.co/PCS1783/petits-pois-chorizo.jpg",
   // "ingredients":[
-  //    { "name": "petit pois", "quantité": 1kg },
+  //    { "name": "petit pois", "quantité": 1 },
   //    { "name": "oignon", "quantité": 1 },
-  //    { "name": "chorizo", "quantité": 1 et demi },
-  //    { "name": "oeuf", "quantité": 1},
+  //    { "name": "chorizo", "quantité": 1 },
+  //    { "name": "oeuf", "quantité": 1 }
   //  ],
   // instructions: [
   //    { "name" :"Etape 1", "description":"Dans une marmite faites revenir à feu vif le chorizo coupé en dés sans matière grasse ( le chorizo en contient déjà !)."},
@@ -68,9 +90,13 @@ app.listen(port, function() {
   //    { "name" :"Etape 3", "description":"Egouttez vos petits pois et ajoutez-les dans la marmite avec un demi verre d'eau ; touillez le tout et laissez cuire en baissant un peu le feu (moyen pendant 6/7 min)."},
   //    { "name" :"Etape 4", "description":"Vider le jus de la marmite et gardez-le dans un bol."},
   //    { "name" :"Etape 4", "description":"Etape très importante sinon c'est la bouillie assurée !"},
-  //    { "name" :"Etape 4", "description":"Battez un oeuf en omelette, versez-le dans la préparation et remuez jusqu'à ce que l’œuf soit cuit, un peu comme un oeuf brouillé."},
+  //    { "name" :"Etape 4", "description":"Battez un oeuf en omelette, versez-le dans la préparation et remuez jusqu'à ce que l’œuf soit cuit, un peu comme un oeuf brouillé."}
   //  ],
   // temps: [
-  //    {"name":"temps de cuisson","duree": 15}
-  //  ]}
+  //    {"name":"temps de cuisson","duree": 15},
+  //    {"duree": 20 }
+  //  ],
+  // "legume": "petit pois",
+  // "saison" : "printemps",
+  // "icon": "https://image.flaticon.com/icons/svg/765/765778.svg"
 
