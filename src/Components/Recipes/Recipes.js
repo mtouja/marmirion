@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import Recette from '../Recette/Recette';
+
+import './Recipes.css';
 
 function searchingFor(term, types) {
   return function(x) {
@@ -47,11 +48,12 @@ class Recipes extends Component {
     const {term, recipesArray} = this.state;
     return (
       <div>
-        <div>
-          <form>
+        <div className="text-center">
+          <form className="find">
             <input type="text" 
                    onChange={this.searchHandler}
                    value={this.state.term}
+                   className= "from-control form-control-lg"
             />
           </form>
         </div>

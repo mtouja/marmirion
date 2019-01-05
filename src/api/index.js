@@ -76,27 +76,23 @@ app.listen(port, function() {
 
 //  INSERT DATA:
 
-  // "title":"Petits pois au chorizo",
-  // "picture":"https://i.ibb.co/PCS1783/petits-pois-chorizo.jpg",
+  // "title":"Velouté de courgettes",
+  // "picture":"https://i.ibb.co/7rJZhK2/velout-courgettes.jpg",
   // "ingredients":[
-  //    { "name": "petit pois", "quantité": 1 },
-  //    { "name": "oignon", "quantité": 1 },
-  //    { "name": "chorizo", "quantité": 1 },
-  //    { "name": "oeuf", "quantité": 1 }
+  //    { "name": "courgettes", "quantité": 1 },
+  //    { "name": "vache qui rit", "quantité": 2 },
+  //    { "name": "bouillon cube", "quantité": 1 }
   //  ],
-  // instructions: [
-  //    { "name" :"Etape 1", "description":"Dans une marmite faites revenir à feu vif le chorizo coupé en dés sans matière grasse ( le chorizo en contient déjà !)."},
-  //    { "name" :"Etape 2", "description":"Faites dorer pendant 5 à 6 min et ajoutez l'oignon émincé, une pointe de sel et laissez cuire jusqu'a ce qu'ils dorent eux aussi (4/5 min)."},
-  //    { "name" :"Etape 3", "description":"Egouttez vos petits pois et ajoutez-les dans la marmite avec un demi verre d'eau ; touillez le tout et laissez cuire en baissant un peu le feu (moyen pendant 6/7 min)."},
-  //    { "name" :"Etape 4", "description":"Vider le jus de la marmite et gardez-le dans un bol."},
-  //    { "name" :"Etape 4", "description":"Etape très importante sinon c'est la bouillie assurée !"},
-  //    { "name" :"Etape 4", "description":"Battez un oeuf en omelette, versez-le dans la préparation et remuez jusqu'à ce que l’œuf soit cuit, un peu comme un oeuf brouillé."}
+  // "instructions": [
+  //    { "name" :"Etape 1", "description":"Laver les courgettes les couper en dés (ne pas éplucher) placer tous les ingrédients dans une cocotte minute sur un fond d'eau (pour ne pas attraper au démarrage de la cuisson)."},
+  //    { "name" :"Etape 2", "description":"(ne surtout pas saler, le bouillon cube s'en charge)."},
+  //    { "name" :"Etape 3", "description":"Fermer la cocotte, démarrer la cuisson."},
+  //    { "name" :"Etape 4", "description":"Au sifflement laisser cuire 5 mn. Mixer le tout, et bon appétit."}
   //  ],
-  // temps: [
-  //    {"name":"temps de cuisson","duree": 15},
-  //    {"duree": 20 }
+  // "temps": [
+  //    {"name":"temps de cuisson","duree": 15}
   //  ],
-  // "legume": "petit pois",
-  // "saison" : "printemps",
-  // "icon": "https://image.flaticon.com/icons/svg/765/765778.svg"
+  // "legume": "courgettes",
+  // "saison" : "été",
+  // "icon": "https://image.flaticon.com/icons/svg/1375/1375195.svg"
 
