@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, NavItem, NavbarToggler, NavLink, Nav, Collapse } from 'reactstrap';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Navigation.css';
+import RecipeForm from '../RecipeForm/RecipeForm';
 
 class Navigation extends Component {
   constructor(props) {
@@ -28,17 +29,10 @@ class Navigation extends Component {
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2 burger" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar color="faded">
-              <NavItem> 
-                <NavLink href="/par saison/" className="item">par saisons</NavLink>
-              </NavItem>
               <NavItem>
-                <NavLink href="/par légume/" className="item">par ingredients</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/par légume/" className="item">login</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/par légume/" className="item">about</NavLink>
+                <NavLink href="/RecipeForm/" className="item" onClick={<RecipeForm/>}>ajouter une recette
+                  <RecipeForm />
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
