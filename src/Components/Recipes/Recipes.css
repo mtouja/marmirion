@@ -6,7 +6,6 @@
 
 .modal-add-recipe {
   justify-content: center;
-  border: solid 6px yellow;
   margin-top: 15%;
 }
 
@@ -19,4 +18,58 @@
   font-family: 'Poppins', sans-serif;
   letter-spacing: 3px;
   color: white;
+}
+
+.modal-form {
+  background-color:#1C2036;
+}
+
+.content-form {
+  background-color: #1C2036;
+  padding: 20px;
+}
+
+.labelTitle {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  color: white;
+  letter-spacing: 3px;
+}
+
+.recipeTitle {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: rgba(255, 101, 0, 0.9);
+  letter-spacing: 4px;
+  font-size: 20px;
+}
+
+.field {
+  margin-bottom: 30px;
+}
+.inputAddRecipe {
+  padding-right: 4.6em;
+}
+.addRecipeButton {
+  margin-top: 8px !important;
+  margin-bottom: 30px !important;
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+} 
+
+.removeStepButton {
+  width: 16px;
+  margin-right: 12px;
+  margin-bottom: 8px;
+  position: relative;
+  margin-top: -17px;
+}
+
+.submitButton {
+  width: 40px;
+}
+
+.seasonIcon {
+  width: 40px;
 }
