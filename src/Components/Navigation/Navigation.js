@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, NavItem, NavbarToggler, NavLink, Nav, Collapse } from 'reactstrap';
+import { Navbar, NavbarBrand, NavItem, NavbarToggler, Nav, Collapse } from 'reactstrap';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Navigation.css';
-import RecipeForm from '../RecipeForm/RecipeForm';
+// import RecipeForm from '../RecipeForm/RecipeForm';
 
 class Navigation extends Component {
   constructor(props) {
@@ -30,9 +30,9 @@ class Navigation extends Component {
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar color="faded">
               <NavItem>
-                <NavLink href="/RecipeForm/" className="item" onClick={<RecipeForm/>}>ajouter une recette
-                  <RecipeForm />
-                </NavLink>
+                {/* <NavLink href="/RecipeForm/" className="item" onClick={<RecipeForm/>}>ajouter une recette */}
+                  {/* <RecipeForm /> */}
+                {/* </NavLink> */}
               </NavItem>
             </Nav>
           </Collapse>
