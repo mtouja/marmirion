@@ -18,7 +18,7 @@ class RecipeForm extends Component {
     }
   }
 
-  // Recipe steps
+  // RECIPE STEPS
   // ------------
   handleStepNameChange = (idx) => (event) => {
     const newStep = this.state.steps.map((step, sidx) => {
@@ -37,7 +37,7 @@ class RecipeForm extends Component {
     this.setState({ steps: this.state.steps.filter((s, sidx) => idx !== sidx) });
   }
 
-  // Ingredients list
+  // INGREDIENTS LIST
   // ------------
   handleIngredientNameChange = (idx) => (event) => {
     const newIngredient = this.state.ingredients.map((ingredient, sidx) => {
@@ -58,7 +58,7 @@ class RecipeForm extends Component {
 
   render() {
     return (
-      <div>
+    <div>
       <Modal isOpen={this.props.recipeForm} toggle={this.props.handleChangeRecipeForm} className="modal-add-recipe">
         <ModalBody className="modal-form" toggle={this.props.handleChangeRecipeForm}>
           <Card>
@@ -70,7 +70,7 @@ class RecipeForm extends Component {
                 </FormGroup>
                 <h6 className="labelTitle text-uppercase text-center">ingredients</h6>
                 <div className="text-center"> 
-                  <Button outline color="primary" onClick={this.handleAddIngredient} className="small addRecipeButton">+</Button>
+                  <Button outline color="primary" onClick={this.handleAddIngredient} className="small addRecipeButton"></Button>
                 </div>
                 {this.state.ingredients.map((ingredient, idx) => (
                   <div className="step">
@@ -141,7 +141,7 @@ class RecipeForm extends Component {
                   </Row>          
                   <h6 className="labelTitle text-uppercase text-center">etapes de préparation</h6>
                   <div className="text-center">
-                    <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton">+</Button>
+                    <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton"></Button>
                   </div>
                   {this.state.steps.map((step, idx) => (
                     <div className="step">
@@ -180,7 +180,7 @@ class RecipeForm extends Component {
           </Card>
         </ModalBody>
       </Modal>
-      </div>
+    </div>
     );
   }
 }
