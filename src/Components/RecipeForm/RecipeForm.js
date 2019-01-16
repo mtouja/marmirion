@@ -5,6 +5,7 @@ import { Form, Label, Input,
          FormGroup, Button,
          Row, Col 
        } from 'reactstrap';
+import axios from 'axios';
 
 import './RecipeForm.css';
 
@@ -12,39 +13,26 @@ class RecipeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      title: "",
       steps: [{ name: ""}],
-      ingredients: [{ name: ""}]
+      ingredients: [{ name: ""}],
+      cuisson:""
     }
   }
 
-  // Recipe steps
+  // TITLE
   // ------------
-  handleStepNameChange = (idx) => (event) => {
-    const newStep = this.state.steps.map((step, sidx) => {
-      if (idx !== sidx) return step;
-      return { ...step, name: event.target.value };
-    });
-    
-    this.setState({ steps: newStep });
+  handleChangeTitle = (event) => {
+    this.setState({ title: event.target.value })
   }
 
-  handleAddStep = () => {
-    this.setState({ steps: this.state.steps.concat([{ name: '' }]) });
-  }
-
-  handleRemoveStep = (idx) => () => {
-    this.setState({ steps: this.state.steps.filter((s, sidx) => idx !== sidx) });
-  }
-
-  // Ingredients list
+  // INGREDIENTS LIST
   // ------------
   handleIngredientNameChange = (idx) => (event) => {
     const newIngredient = this.state.ingredients.map((ingredient, sidx) => {
       if (idx !== sidx) return ingredient;
       return { ...ingredient, name: event.target.value };
     });
-    
     this.setState({ ingredients: newIngredient });
   }
 
@@ -56,21 +44,68 @@ class RecipeForm extends Component {
     this.setState({ ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx) });
   }
 
+  // RECIPE STEPS
+  // ------------
+  handleStepNameChange = (idx) => (event) => {
+    const newStep = this.state.steps.map((step, sidx) => {
+      if (idx !== sidx) return step;
+      return { ...step, name: event.target.value };
+    });
+    this.setState({ steps: newStep });
+  }
+
+  handleAddStep = () => {
+    this.setState({ steps: this.state.steps.concat([{ name: '' }]) });
+  }
+
+  handleRemoveStep = (idx) => () => {
+    this.setState({ steps: this.state.steps.filter((s, sidx) => idx !== sidx) });
+  }
+
+  // SUBMIT FORM TO API
+  // ------------
+  handleSubmit = () => {
+    axios.post("http://localhost:8000/recettes/new",{
+      title: this.state.title,
+      steps: this.state.steps,
+      ingredients: this.state.ingredients,
+      cuisson: this.state.cuisson
+      })
+    .then((res) => {
+    console.log(res)
+    })
+    .catch((err) => {
+    console.log(err);
+    });
+}
+// http://localhost:8000/recettes/new
+
   render() {
     return (
-      <div>
-      <Modal isOpen={this.props.recipeForm} toggle={this.props.handleChangeRecipeForm} className="modal-add-recipe">
+    <div>
+      <Modal 
+        isOpen={this.props.recipeForm} 
+        toggle={this.props.handleChangeRecipeForm} 
+        className="modal-add-recipe"
+      >
         <ModalBody className="modal-form" toggle={this.props.handleChangeRecipeForm}>
           <Card>
             <CardBody >
-              <Form className="content-form" onSubmit={this.handleSubmit} >
+              <Form className="content-form">
                 <FormGroup>
                   <h6 className="recipeTitle text-uppercase text-center">titre de la recette</h6>
-                  <Input type="text" name="text" id="recipeTitle" placeholder="Titre de la recette" className="field" value={this.state.value} onChange={this.handleChangeInput} />
+                  <Input type="text" 
+                         title="title" 
+                         id="recipeTitle" 
+                         placeholder="Titre de la recette" 
+                         className="field" 
+                         value={this.state.title} 
+                         onChange={this.handleChangeTitle}
+                  />
                 </FormGroup>
                 <h6 className="labelTitle text-uppercase text-center">ingredients</h6>
                 <div className="text-center"> 
-                  <Button outline color="primary" onClick={this.handleAddIngredient} className="small addRecipeButton">+</Button>
+                  <Button outline color="primary" onClick={this.handleAddIngredient} className="small addRecipeButton"></Button>
                 </div>
                 {this.state.ingredients.map((ingredient, idx) => (
                   <div className="step">
@@ -82,6 +117,7 @@ class RecipeForm extends Component {
                           value={ingredient.name}
                           onChange={this.handleIngredientNameChange(idx)}
                           className="InputAddRecipe"
+                          name="ingredients"
                         />
                         <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
                           <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
@@ -141,7 +177,7 @@ class RecipeForm extends Component {
                   </Row>          
                   <h6 className="labelTitle text-uppercase text-center">etapes de préparation</h6>
                   <div className="text-center">
-                    <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton">+</Button>
+                    <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton"></Button>
                   </div>
                   {this.state.steps.map((step, idx) => (
                     <div className="step">
@@ -171,16 +207,16 @@ class RecipeForm extends Component {
                     </Col>
                   </Row>
                   <div className="text-center">
-                    <a className="btn">
+                    <a onClick={this.handleSubmit} className="btn">
                       <img src="https://image.flaticon.com/icons/svg/226/226972.svg" className="submitButton"/>
-                    </a> 
+                    </a > 
                   </div>          
               </Form>
             </CardBody>
           </Card>
         </ModalBody>
       </Modal>
-      </div>
+    </div>
     );
   }
 }

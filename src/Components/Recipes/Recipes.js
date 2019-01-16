@@ -42,7 +42,7 @@ class Recipes extends Component {
     })
   }
 
-  // Search bar
+  // SEARCH BAR
   // ------------
   searchHandler = (event) => {
     this.setState({ term: event.target.value });
@@ -56,7 +56,7 @@ class Recipes extends Component {
     this.displayAllRecipes()
   }
 
-  // Appel du formulaire
+  // APPEL DU FORMULAIRE
   // ------------
   handleChangeRecipeForm = () => {
     this.setState({ recipeForm: !this.state.recipeForm})
@@ -91,17 +91,17 @@ class Recipes extends Component {
           </Col>
         </Row>
         <Row>
-            {this.state.recipesArray.filter(searchingFor(this.state.term, ["legume", "saison", "title"])).map((recette, index) => (
-          <Recette
-            key={index}
-            title={recette.title}
-            picture={recette.picture}
-            ingredients={recette.ingredients}
-            instructions={recette.instructions}
-            temps={recette.temps}
-            saison={recette.saison}
-            icon={recette.icon}
-          /> 
+          {this.state.recipesArray.filter(searchingFor(this.state.term, ["legume", "saison", "title"])).map((recette, index) => (
+            <Recette
+              key={index}
+              title={recette.title}
+              picture={recette.picture}
+              ingredients={recette.ingredients}
+              instructions={recette.instructions}
+              temps={recette.temps}
+              saison={recette.saison}
+              icon={recette.icon}
+            /> 
           ))}
         </Row>
       </Container>
