@@ -44,8 +44,8 @@ class Recette extends Component {
                         <CardTitle className="mt-3 etapes">étapes de préparation</CardTitle>
                         <CardBody className="p-3">
                           <img src='https://image.flaticon.com/icons/svg/186/186146.svg' className="marmite"/>
-                          {this.props.instructions.map((details, index) => {
-                          return <p p className="ml-3 mt-3 mb-3">{details.description}</p>
+                            {this.props.steps.map((details, index) => {
+                              return <p p className="ml-3 mt-3 mb-3">{details.description}</p>
                           })}
                           <div className="d-flex justify-content-center align-items-center">
                             <Button color="secondary" className="mt-4 mb-3 details" onClick={this.toggle}>Retour à la liste</Button>

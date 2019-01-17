@@ -97,7 +97,7 @@ class Recipes extends Component {
               title={recette.title}
               picture={recette.picture}
               ingredients={recette.ingredients}
-              instructions={recette.instructions}
+              steps={recette.steps}
               temps={recette.temps}
               saison={recette.saison}
               icon={recette.icon}

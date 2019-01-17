@@ -14,6 +14,7 @@ class RecipeForm extends Component {
     super(props);
     this.state = {
       title: "",
+      picture: "",
       steps: [{ name: ""}],
       ingredients: [{ name: ""}],
       cuisson:""
@@ -24,6 +25,12 @@ class RecipeForm extends Component {
   // ------------
   handleChangeTitle = (event) => {
     this.setState({ title: event.target.value })
+  }
+
+  // PICTURE
+  // ------------
+  handleChangePicture = (event) => {
+    this.setState({ picture: event.target.value })
   }
 
   // INGREDIENTS LIST
@@ -67,6 +74,7 @@ class RecipeForm extends Component {
   handleSubmit = () => {
     axios.post("http://localhost:8000/recettes/new",{
       title: this.state.title,
+      picture: this.state.picture,
       steps: this.state.steps,
       ingredients: this.state.ingredients,
       cuisson: this.state.cuisson
@@ -78,7 +86,6 @@ class RecipeForm extends Component {
     console.log(err);
     });
 }
-// http://localhost:8000/recettes/new
 
   render() {
     return (
@@ -101,6 +108,16 @@ class RecipeForm extends Component {
                          className="field" 
                          value={this.state.title} 
                          onChange={this.handleChangeTitle}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <h6 className="recipeTitle text-uppercase text-center"></h6>
+                  <Input type="text" 
+                         title="picture" 
+                         placeholder="Url de la photo" 
+                         className="field" 
+                         value={this.state.picture} 
+                         onChange={this.handleChangePicture}
                   />
                 </FormGroup>
                 <h6 className="labelTitle text-uppercase text-center">ingredients</h6>

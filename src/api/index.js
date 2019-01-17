@@ -27,7 +27,7 @@ let recipeSchema = Schema({
   title:  String,
   picture: String,
   ingredients:Array,
-  instructions: Array,
+  steps: Array,
   temps: Array,
   saison: String,
   icon: String
@@ -50,8 +50,9 @@ app.post('/recettes/new',(req, res) => {
   console.log(req.body);
   recipeModel.create({ 
     "title": req.body.title, 
+    "picture": req.body.picture,
     "ingredients": req.body.ingredients, 
-    "instructions": req.body.steps })
+    "steps": req.body.steps })
   console.log(`${title}`);
 });
 
