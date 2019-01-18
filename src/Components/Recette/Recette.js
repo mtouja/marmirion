@@ -47,11 +47,11 @@ class Recette extends Component {
                       </Card>
                       <Card>
                         <CardBody className="p-3">
-                          <img src='https://image.flaticon.com/icons/svg/186/186146.svg' className="marmite"/>
+                          <img src="https://image.flaticon.com/icons/svg/1145/1145150.svg" className="marmite"/>
                             {this.props.steps.map((details, index) => {
                               return(
                                 <div>
-                                  <p p className="ml-3 mt-3 mb-3"><strong>{details.name}</strong></p>
+                                  <p p className="ml-3 mt-3 mb-3">{details.name}</p>
                                   <p p className="ml-3 mt-3 mb-3">{details.description}</p>
                                 </div>
                               )
@@ -63,7 +63,7 @@ class Recette extends Component {
                                   {details.thermostat ? 
                                     <img src="https://image.flaticon.com/icons/svg/808/808444.svg" className="baking"/>
                                     :
-                                    <img src="https://image.flaticon.com/icons/svg/264/264018.svg" className="baking"/>
+                                    <img src="https://image.flaticon.com/icons/svg/189/189946.svg" className="baking"/>
                                   }                                  
                                   <p p className="ml-3 mt-3 mb-3">{details.duree}{' min'}</p>
                                   <h6 p className="ml-3 mt-3 mb-3">{details.thermostat ? details.thermostat + ' °C' : null}</h6>

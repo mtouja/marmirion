@@ -53,7 +53,6 @@ app.post('/recettes/new',(req, res) => {
     "picture": req.body.picture,
     "ingredients": req.body.ingredients, 
     "steps": req.body.steps,
-    // "quantity":req.body.quantity,
     "temps": req.body.temps
   })
   console.log(`${req.body.temps}`);

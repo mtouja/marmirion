@@ -33,30 +33,14 @@ class RecipeForm extends Component {
     this.setState({ picture: event.target.value })
   }
 
-  // INGREDIENTS LIST
-  // ------------
+  // INGREDIENTS 
+  // ------------name
   handleIngredientNameChange = (idx) => (event) => {
     const newIngredient = this.state.ingredients.map((ingredient, sidx) => {
       if (idx !== sidx) return ingredient;
       return { ...ingredient, name: event.target.value };
     });
     this.setState({ ingredients: newIngredient });
-  }
-
-  handlequantityChange = (idx) => (event) => {
-    const newQuantity = this.state.ingredients.map((ingredient, sidx) => {
-      if (idx !== sidx) return ingredient;
-      return { ...ingredient, quantité: event.target.value };
-    });
-    this.setState({ ingredients: newQuantity });
-  }
-
-  handleChangeTemps = (idx) => (event) => {
-    const newTemps = this.state.temps.map((temp, sidx) => {
-      if (idx !== sidx) return temp;
-      return { ...temp, duree: event.target.value };
-    });
-    this.setState({ temps: newTemps });
   }
 
   handleAddIngredient = () => {
@@ -67,8 +51,8 @@ class RecipeForm extends Component {
     this.setState({ ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx) });
   }
 
-  // QUANTITY
-  // ------------
+  // INGREDIENTS
+  // ------------quantité
   handleQuantityChange = (idx) => (event) => {
     const newQuantity = this.state.ingredients.map((test, sidx) => {
       if (idx !== sidx) return test;
@@ -81,8 +65,8 @@ class RecipeForm extends Component {
     this.setState({ quantité: this.state.ingredients.quantité })
   }
 
-  // UNITY
-  // ------------
+  // INGREDIENTS
+  // ------------ unity
   handleUnityChange = (idx) => (event) => {
     const newUnity = this.state.ingredients.map((test, sidx) => {
       if (idx !== sidx) return test;
@@ -113,17 +97,34 @@ class RecipeForm extends Component {
     this.setState({ steps: this.state.steps.filter((s, sidx) => idx !== sidx) });
   }
 
+  // TEMPS
+  // ------------ duree
+  handleChangeTemps = (idx) => (event) => {
+    const newTemps = this.state.temps.map((temp, sidx) => {
+      if (idx !== sidx) return temp;
+      return { ...temp, duree: event.target.value };
+    });
+    this.setState({ temps: newTemps });
+  }
+
+  handleRemoveTemps = (idx) => () => {
+    this.setState({ temps: this.state.temps.filter((s, sidx ) => idx !== sidx) });
+  }
+
+  // ------------ thermostat
+  handleChangeThermostat = (idx) => (event) => {
+    const newTemps = this.state.temps.map((temp, sidx) => {
+      if (idx !== sidx) return temp;
+      return { ...temp, thermostat: event.target.value };
+    });
+    this.setState({ temps: newTemps });
+  }
+
   handleAddField = () => {
     this.handleAddIngredient();
     this.handleAddQuantity();
     this.handleAddUnity();
   }
-
-  // BAKING
-  // ------------
-  // handleBakingChange = (event) => {
-  //   this.setState({ duree: this.state.temps.duree })  
-  // }
 
   // SUBMIT FORM TO API
   // ------------
@@ -150,8 +151,7 @@ class RecipeForm extends Component {
       <Modal 
         isOpen={this.props.recipeForm} 
         toggle={this.props.handleChangeRecipeForm} 
-        className="modal-add-recipe"
-      >
+        className="modal-add-recipe">
         <ModalBody className="modal-form" toggle={this.props.handleChangeRecipeForm}>
           <Card>
             <CardBody >
@@ -235,47 +235,39 @@ class RecipeForm extends Component {
                   </Col>
                 </Row>
                 <h6 className="labelTitle text-uppercase text-center">saison</h6> 
-                <Row>
-                  <Col md={3} className="text-center">
-                    <img src="https://image.flaticon.com/icons/svg/186/186094.svg" className="seasonIcon"/>
-                    <FormGroup tag="fieldset">
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" name="radio1" />{' '}
-                        </Label>
-                      </FormGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col md={3} className="text-center">
-                    <img src="https://image.flaticon.com/icons/svg/1375/1375195.svg" className="seasonIcon"/>
-                    <FormGroup tag="fieldset">
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" name="radio1" />{' '}
-                        </Label>
-                      </FormGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col md={3} className="text-center">
-                    <img src="https://image.flaticon.com/icons/svg/1147/1147560.svg" className="seasonIcon"/>
-                    <FormGroup tag="fieldset">
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" name="radio1" />{' '}
-                        </Label>
-                      </FormGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col md={3} className="text-center">
-                    <img src="https://image.flaticon.com/icons/svg/1337/1337709.svg" className="seasonIcon"/>
-                    <FormGroup tag="fieldset">
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" name="radio1" />{' '}
-                        </Label>
-                      </FormGroup>
-                    </FormGroup>
-                  </Col>
+                <Row md={12} className="d-flex justify-content-center">
+                  <Button outline color="dark">
+                    <Col className="text-center">
+                      <img src="https://image.flaticon.com/icons/svg/186/186094.svg" className="seasonIcon"/>
+                    </Col>
+                  </Button>
+                  <Button outline color="dark">
+                    <Col className="text-center">
+                      <img src="https://image.flaticon.com/icons/svg/1375/1375195.svg" className="seasonIcon"/>
+                    </Col>
+                  </Button>
+                  <Button outline color="dark">
+                    <Col className="text-center">
+                      <img src="https://image.flaticon.com/icons/svg/1147/1147560.svg" className="seasonIcon"/>
+                    </Col>
+                  </Button>
+                  </Row>
+                  <Row md={12} className="d-flex justify-content-center">
+                    <Button outline color="dark">
+                      <Col className="text-center">
+                        <img src="https://image.flaticon.com/icons/svg/1337/1337709.svg" className="seasonIcon"/>
+                      </Col>
+                    </Button>
+                    <Button outline color="dark">
+                      <Col className="text-center">
+                        <img src="https://image.flaticon.com/icons/svg/1375/1375194.svg" className="seasonIcon"/>
+                      </Col>
+                    </Button>
+                    <Button outline color="dark">
+                      <Col className="text-center">
+                        <img src="https://image.flaticon.com/icons/svg/985/985542.svg" className="seasonIcon"/>
+                      </Col>
+                    </Button>
                 </Row>          
                 <h6 className="labelTitle text-uppercase text-center">etapes de préparation</h6>
                 <div className="text-center">
@@ -296,40 +288,44 @@ class RecipeForm extends Component {
                   </div>
                   ))}  
                   <h6 className="labelTitle text-uppercase text-center">cuisson</h6>
-                  
-                  <Row>
-                    <Col md={6}>
-                    {this.state.temps.map((temp, idx) => (
-                      <div className="step">
-                        {/* <FormGroup> */}
+                  <FormGroup>
+                    <Row>
+                      <Col md={6}>
+                      {this.state.temps.map((temp, idx) => (
+                        <div className="step">
+                          <Input 
+                              key={idx}
+                              type="number" 
+                              name="temps" 
+                              placeholder="temps de cuisson"
+                              value={temp.duree} 
+                              onChange={this.handleChangeTemps(idx)}
+                          />
+                          <a className="btn" onClick={this.handleRemoveTemps(idx)} className="small float-right removeStepButton">
+                            <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                          </a>
+                        </div>
+                      ))}
+                      </Col>
+                      <Col md={6}>
+                      {this.state.temps.map((temp, idx) => (
                           <Input 
                             key={idx}
                             type="number" 
-                            name="temps" 
-                            id="recipeTitle" 
-                            placeholder="temps de cuisson"
-                            value={temp.duree} 
-                            onChange={this.handleChangeTemps(idx)}
-                            className="field" />
-                        {/* </FormGroup> */}
-                      </div>
-                    ))}
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Input 
-                          type="text" 
-                          name="thermostat" 
-                          id="recipeTitle" 
-                          placeholder="thermostat" 
-                          className="field" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                            name="thermostat" 
+                            value={temp.thermostat}
+                            placeholder="thermostat" 
+                            onChange={this.handleChangeThermostat(idx)}
+                          />
+                      ))}
+                      </Col>
+                    </Row>
+                  </FormGroup>
                   <div className="text-center">
-                    <a onClick={this.handleSubmit} className="btn">
-                      <img src="https://image.flaticon.com/icons/svg/226/226972.svg" className="submitButton"/>
-                    </a > 
+                    <Button onClick={this.handleSubmit} className="btn" color="success">
+                      {/* <img src="https://image.flaticon.com/icons/svg/226/226972.svg" className="submitButton"/> */}
+                        <p className="text-uppercase">valider</p>
+                    </Button > 
                   </div>          
               </Form>
             </CardBody>
