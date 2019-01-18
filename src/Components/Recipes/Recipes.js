@@ -39,6 +39,7 @@ class Recipes extends Component {
       this.setState({
           recipesArray: data
       })
+      console.log(this.state.recipesArray)
     })
   }
 
@@ -97,10 +98,12 @@ class Recipes extends Component {
               title={recette.title}
               picture={recette.picture}
               ingredients={recette.ingredients}
-              instructions={recette.instructions}
+              steps={recette.steps}
               temps={recette.temps}
               saison={recette.saison}
               icon={recette.icon}
+              quantity={recette.quantity}
+              cuisson={recette.cuisson}
             /> 
           ))}
         </Row>

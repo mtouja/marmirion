@@ -27,7 +27,8 @@ let recipeSchema = Schema({
   title:  String,
   picture: String,
   ingredients:Array,
-  instructions: Array,
+  // quantity: Array,
+  steps: Array,
   temps: Array,
   saison: String,
   icon: String
@@ -46,17 +47,16 @@ app.get('/recettes',(req, res) => {
 })
 
 app.post('/recettes/new',(req, res) => {
-  (`http://localhost:8000/recettes/new`)
   console.log(req.body);
   recipeModel.create({ 
     "title": req.body.title, 
+    "picture": req.body.picture,
     "ingredients": req.body.ingredients, 
-    "instructions": req.body.steps })
-  console.log(`${title}`);
+    "steps": req.body.steps,
+    "temps": req.body.temps
+  })
+  console.log(`${req.body.temps}`);
 });
-
-
-
 
 //  LISTEN
 app.listen(port, function() {

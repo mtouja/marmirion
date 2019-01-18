@@ -59,11 +59,11 @@
 } 
 
 .removeStepButton {
-  width: 16px;
+  width: 13px;
   margin-right: 12px;
   margin-bottom: 8px;
   position: relative;
-  margin-top: -17px;
+  margin-top: -28px;
 }
 
 .submitButton {
@@ -71,5 +71,5 @@
 }
 
 .seasonIcon {
-  width: 40px;
+  width: 35px;
 }

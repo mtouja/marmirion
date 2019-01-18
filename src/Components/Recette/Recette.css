@@ -31,10 +31,19 @@ div.card-body {
 }
 
 .marmite {
-  width: 45px;
+  width: 55px;
   display: flex;
   margin: auto;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.baking {
+  width: 80px;
+  display: flex;
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .icon {
