@@ -15,9 +15,9 @@ class RecipeForm extends Component {
     this.state = {
       title: "",
       picture: "",
-      ingredients: [{ name: ""}, { quantité: 0 }],
-      steps: [{ name: ""}, { description: ""}],
-      temps: [{ name: ""}, { duree: 0 }, { thermostat: 0 }]
+      ingredients: [{ name: "",  quantité: 0 }],
+      steps: [{ name: "", description: "" }],
+      temps: [{ name: "", duree: 0, thermostat: 0 }],
     }
   }
 
@@ -46,7 +46,7 @@ class RecipeForm extends Component {
   handleAddIngredient = () => {
     this.setState({ ingredients: this.state.ingredients.concat([{ name: '' }]) });
   }
-  
+
   handleRemoveIngredient = (idx) => () => {
     this.setState({ ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx) });
   }
@@ -79,7 +79,7 @@ class RecipeForm extends Component {
     this.setState({ unity: this.state.ingredients.unity })
   }
 
-  // RECIPE STEPS
+  // STEPS
   // ------------
   handleStepNameChange = (idx) => (event) => {
     const newStep = this.state.steps.map((step, sidx) => {
@@ -105,10 +105,6 @@ class RecipeForm extends Component {
       return { ...temp, duree: event.target.value };
     });
     this.setState({ temps: newTemps });
-  }
-
-  handleRemoveTemps = (idx) => () => {
-    this.setState({ temps: this.state.temps.filter((s, sidx ) => idx !== sidx) });
   }
 
   // ------------ thermostat
@@ -158,35 +154,38 @@ class RecipeForm extends Component {
               <Form className="content-form">
                 <FormGroup>
                   <h6 className="recipeTitle text-uppercase text-center">titre de la recette</h6>
-                  <Input type="text" 
-                         title="title" 
-                         id="recipeTitle" 
-                         placeholder="Titre de la recette" 
-                         className="field" 
-                         value={this.state.title} 
-                         onChange={this.handleChangeTitle}
+                  <Input 
+                    type="text" 
+                    title="title" 
+                    id="recipeTitle" 
+                    placeholder="Titre de la recette" 
+                    className="field" 
+                    value={this.state.title} 
+                    onChange={this.handleChangeTitle}
                   />
                 </FormGroup>
                 <FormGroup>
                   <h6 className="recipeTitle text-uppercase text-center"></h6>
-                  <Input type="url" 
-                         title="picture" 
-                         placeholder="Url de la photo" 
-                         className="field" 
-                         value={this.state.picture} 
-                         onChange={this.handleChangePicture}
+                  <Input 
+                    type="url" 
+                    title="picture" 
+                    placeholder="Url de la photo" 
+                    className="field" 
+                    value={this.state.picture} 
+                    onChange={this.handleChangePicture}
                   />
                 </FormGroup>
                 <h6 className="labelTitle text-uppercase text-center">ingredients</h6>
                 <div className="text-center"> 
                   <Button outline color="primary" onClick={this.handleAddField} className="small addRecipeButton"></Button>
                 </div>
-              <Row>
-                <Col md={4}>
+              <Row md={12}>
+                <Col >
                 {this.state.ingredients.map((ingredient, idx) => (
                   <div className="step">
                     <FormGroup>
                       <Input
+                        key={idx}
                         type="text"
                         placeholder={`Ingredient ${idx + 1}`}
                         value={ingredient.name}
@@ -195,17 +194,15 @@ class RecipeForm extends Component {
                         name="ingredients"
                       />
                     </FormGroup>
-                    <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
-                      <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
-                    </a>
                   </div>
                   ))}
                   </Col>
-                  <Col md={4}>
+                  <Col >
                   {this.state.ingredients.map((ingredient, idx) => (
                     <div className="step">
                       <FormGroup>
                         <Input
+                          key={idx}
                           type="number"
                           placeholder="quantité"
                           value={ingredient.quantité}
@@ -217,24 +214,28 @@ class RecipeForm extends Component {
                     </div>
                   ))}
                   </Col>
-                  <Col md={4}>
+                  <Col >
                   {this.state.ingredients.map((ingredient, idx) => (
                     <div className="step">
                       <FormGroup>
                         <Input
+                          key={idx}
                           type="text"
-                          placeholder="unité de mesure"
+                          placeholder="unité"
                           value={ingredient.unity}
                           onChange={this.handleUnityChange(idx)}
                           className="InputAddRecipe"
                           name="unity"
                         />
                       </FormGroup>
+                      <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
+                        <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                      </a>
                     </div>
                   ))}
                   </Col>
                 </Row>
-                <h6 className="labelTitle text-uppercase text-center">saison</h6> 
+                <h6 className="labelTitle text-uppercase text-center">categorie</h6> 
                 <Row md={12} className="d-flex justify-content-center">
                   <Button outline color="dark">
                     <Col className="text-center">
@@ -276,6 +277,7 @@ class RecipeForm extends Component {
                 {this.state.steps.map((step, idx) => (
                   <div className="step">
                     <Input
+                      key={idx}
                       type="textarea"
                       placeholder={`Etape ${idx + 1}`}
                       value={step.description}
@@ -294,16 +296,13 @@ class RecipeForm extends Component {
                       {this.state.temps.map((temp, idx) => (
                         <div className="step">
                           <Input 
-                              key={idx}
-                              type="number" 
-                              name="temps" 
-                              placeholder="temps de cuisson"
-                              value={temp.duree} 
-                              onChange={this.handleChangeTemps(idx)}
+                            key={idx}
+                            type="number" 
+                            name="temps" 
+                            placeholder="temps de cuisson"
+                            value={temp.duree} 
+                            onChange={this.handleChangeTemps(idx)}
                           />
-                          <a className="btn" onClick={this.handleRemoveTemps(idx)} className="small float-right removeStepButton">
-                            <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
-                          </a>
                         </div>
                       ))}
                       </Col>
