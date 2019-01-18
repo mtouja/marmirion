@@ -15,9 +15,10 @@ class RecipeForm extends Component {
     this.state = {
       title: "",
       picture: "",
-      steps: [{ name: ""}, { quantité: 0 }, { unity:"" }],
-      ingredients: [{ name: ""}],
-      temps:[{ name: "" }, { duree: 0 }]
+      ingredients: [{ name: ""}, { quantité: 0 }],
+      quantity: [{ name: 0}],
+      steps: [{ name: ""}],
+      cuisson:"",
     }
   }
 
@@ -59,6 +60,20 @@ class RecipeForm extends Component {
     this.setState({ ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx) });
   }
 
+  // QUANTITY
+  // ------------
+  handleQuantityChange = (idx) => (event) => {
+    const newQuantity = this.state.ingredients.map((test, sidx) => {
+      if (idx !== sidx) return test;
+      return { ...test, quantité: event.target.value };
+    });
+    this.setState({ ingredients: newQuantity });
+  }
+
+  handleAddQuantity = (event) => {
+    this.setState({ quantity: this.state.quantity.concat([{quantity: 0 }]) });
+  }
+
   // RECIPE STEPS
   // ------------
   handleStepNameChange = (idx) => (event) => {
@@ -77,14 +92,21 @@ class RecipeForm extends Component {
     this.setState({ steps: this.state.steps.filter((s, sidx) => idx !== sidx) });
   }
 
+  handleAddField = () => {
+    this.handleAddIngredient();
+    this.handleAddQuantity();
+  }
+
   // SUBMIT FORM TO API
   // ------------
   handleSubmit = () => {
+    console.log(this.state.title,this.state.picture,this.state.ingredients,this.state.quantity, this.state.steps,this.state.cuisson)
     axios.post("http://localhost:8000/recettes/new",{
       title: this.state.title,
       picture: this.state.picture,
-      steps: this.state.steps,
       ingredients: this.state.ingredients,
+      quantity: this.state.quantity,
+      steps: this.state.steps,
       cuisson: this.state.cuisson
       })
     .then((res) => {
@@ -120,7 +142,7 @@ class RecipeForm extends Component {
                 </FormGroup>
                 <FormGroup>
                   <h6 className="recipeTitle text-uppercase text-center"></h6>
-                  <Input type="text" 
+                  <Input type="url" 
                          title="picture" 
                          placeholder="Url de la photo" 
                          className="field" 
@@ -130,12 +152,13 @@ class RecipeForm extends Component {
                 </FormGroup>
                 <h6 className="labelTitle text-uppercase text-center">ingredients</h6>
                 <div className="text-center"> 
-                  <Button outline color="primary" onClick={this.handleAddIngredient} className="small addRecipeButton"></Button>
+                  <Button outline color="primary" onClick={this.handleAddField} className="small addRecipeButton"></Button>
                 </div>
-                {this.state.ingredients.map((ingredient, idx) => (
-                  <div className="step">
-                    <Row>
-                      <Col md={6}>
+                <Row>
+                  <Col md={6}>
+                  {this.state.ingredients.map((ingredient, idx) => (
+                    <div className="step">
+                      <FormGroup>
                         <Input
                           type="text"
                           placeholder={`Ingredient ${idx + 1}`}
@@ -147,77 +170,131 @@ class RecipeForm extends Component {
                         <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
                           <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
                         </a>
-                      </Col>
-                      <Col md={6}> 
-                        <Input 
-                          type="text"
-                          placeholder="quantité"
-                        />
-                      </Col> 
-                    </Row>
-                  </div>
-                  ))} 
-                  <h6 className="labelTitle text-uppercase text-center">saison</h6> 
-                  <Row>
-                    <Col md={3} className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/186/186094.svg" className="seasonIcon"/>
-                      <FormGroup tag="fieldset">
-                        <FormGroup check>
-                          <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                          </Label>
-                        </FormGroup>
                       </FormGroup>
-                    </Col>
-                    <Col md={3} className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/1375/1375195.svg" className="seasonIcon"/>
-                      <FormGroup tag="fieldset">
-                        <FormGroup check>
-                          <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                          </Label>
-                        </FormGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col md={3} className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/1147/1147560.svg" className="seasonIcon"/>
-                      <FormGroup tag="fieldset">
-                        <FormGroup check>
-                          <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                          </Label>
-                        </FormGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col md={3} className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/1337/1337709.svg" className="seasonIcon"/>
-                      <FormGroup tag="fieldset">
-                        <FormGroup check>
-                          <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                          </Label>
-                        </FormGroup>
-                      </FormGroup>
-                    </Col>
-                  </Row>          
-                  <h6 className="labelTitle text-uppercase text-center">etapes de préparation</h6>
-                  <div className="text-center">
-                    <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton"></Button>
-                  </div>
-                  {this.state.steps.map((step, idx) => (
-                    <div className="step">
-                      <Input
-                        type="textarea"
-                        placeholder={`Etape ${idx + 1}`}
-                        value={step.name}
-                        onChange={this.handleStepNameChange(idx)}
-                        className="InputAddRecipe"
-                      />
-                      <a className="btn" onClick={this.handleRemoveStep(idx)} className="small float-right removeStepButton">
-                        <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
-                      </a>
                     </div>
-                    ))}  
+                    ))}
+                    </Col>
+                    <Col md={6}>
+                    {this.state.quantity.map((quanti, idx) => (
+                      <div className="step">
+                        <FormGroup>
+                          <Input
+                            type="text"
+                            placeholder="quantité"
+                            value={quanti.name}
+                            onChange={this.handleQuantityChange(idx)}
+                            className="InputAddRecipe"
+                            name="quantity"
+                          />
+                        </FormGroup>
+                      </div>
+                    ))}
+                    </Col>
+                  </Row>
+                {/* <h6 className="labelTitle text-uppercase text-center">quantité</h6> */}
+                {/* <div className="text-center"> 
+                  <Button outline color="primary" onClick={this.handleAddQuantity} className="small addRecipeButton"></Button>
+                </div> */}
+                {/* {this.state.quantity.map((quanti, idx) => (
+                  <div className="step"> */}
+                    {/* <Row> */}
+                      {/* <Col md={6}>
+                        <Input
+                          type="text"
+                          placeholder="0"
+                          value={quanti.name}
+                          onChange={this.handleQuantityChange(idx)}
+                          className="InputAddRecipe"
+                          name="quantity"
+                        /> */}
+                        {/* <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
+                          <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                //         </a> */}
+                {/* //       </Col>
+                //     </Row>
+                //   </div>
+                // ))} */}
+                {/* <h6 className="labelTitle text-uppercase text-center">quantité</h6>
+                <div className="text-center"> 
+                  <Button outline color="primary" onClick={this.handleAddQuantity} className="small addRecipeButton"></Button>
+                </div>
+                {this.state.quantity.map((quanti, idx) => (
+                  <div key={idx} className="step">
+                      <Row>
+                        <Col md={6}>
+                          <Input
+                            type="text"
+                            placeholder={`quantité ${idx + 1}`}
+                            value={quanti.name}
+                            onChange={this.handleQuantityChange(idx)}
+                            className="InputAddRecipe"
+                            name="quantity"
+                          />
+                        </Col>
+                      </Row>
+                    </div>
+                ))} */}
+                <h6 className="labelTitle text-uppercase text-center">saison</h6> 
+                <Row>
+                  <Col md={3} className="text-center">
+                    <img src="https://image.flaticon.com/icons/svg/186/186094.svg" className="seasonIcon"/>
+                    <FormGroup tag="fieldset">
+                      <FormGroup check>
+                        <Label check>
+                          <Input type="radio" name="radio1" />{' '}
+                        </Label>
+                      </FormGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col md={3} className="text-center">
+                    <img src="https://image.flaticon.com/icons/svg/1375/1375195.svg" className="seasonIcon"/>
+                    <FormGroup tag="fieldset">
+                      <FormGroup check>
+                        <Label check>
+                          <Input type="radio" name="radio1" />{' '}
+                        </Label>
+                      </FormGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col md={3} className="text-center">
+                    <img src="https://image.flaticon.com/icons/svg/1147/1147560.svg" className="seasonIcon"/>
+                    <FormGroup tag="fieldset">
+                      <FormGroup check>
+                        <Label check>
+                          <Input type="radio" name="radio1" />{' '}
+                        </Label>
+                      </FormGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col md={3} className="text-center">
+                    <img src="https://image.flaticon.com/icons/svg/1337/1337709.svg" className="seasonIcon"/>
+                    <FormGroup tag="fieldset">
+                      <FormGroup check>
+                        <Label check>
+                          <Input type="radio" name="radio1" />{' '}
+                        </Label>
+                      </FormGroup>
+                    </FormGroup>
+                  </Col>
+                </Row>          
+                <h6 className="labelTitle text-uppercase text-center">etapes de préparation</h6>
+                <div className="text-center">
+                  <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton"></Button>
+                </div>
+                {this.state.steps.map((step, idx) => (
+                  <div className="step">
+                    <Input
+                      type="textarea"
+                      placeholder={`Etape ${idx + 1}`}
+                      value={step.name}
+                      onChange={this.handleStepNameChange(idx)}
+                      className="InputAddRecipe"
+                    />
+                    <a className="btn" onClick={this.handleRemoveStep(idx)} className="small float-right removeStepButton">
+                      <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                    </a>
+                  </div>
+                  ))}  
                   <h6 className="labelTitle text-uppercase text-center">cuisson</h6>
                   <Row>
                     <Col md={6}>
