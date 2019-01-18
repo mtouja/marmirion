@@ -27,7 +27,7 @@ let recipeSchema = Schema({
   title:  String,
   picture: String,
   ingredients:Array,
-  quantity: Array,
+  // quantity: Array,
   steps: Array,
   temps: Array,
   saison: String,
@@ -53,9 +53,10 @@ app.post('/recettes/new',(req, res) => {
     "picture": req.body.picture,
     "ingredients": req.body.ingredients, 
     "steps": req.body.steps,
-    "quantity":req.body.quantity
+    // "quantity":req.body.quantity,
+    "temps": req.body.temps
   })
-  console.log(`${req.body.title}`);
+  console.log(`${req.body.temps}`);
 });
 
 
@@ -70,7 +71,6 @@ app.post('/recettes/new',(req, res) => {
 app.listen(port, function() {
 })
 
-<<<<<<< Updated upstream
 // "title" : "Fondant au chocolat",
 // "picture" : "https://i.ibb.co/fpZbHW5/moelleux-emilie.jpg",
 // "ingredients" : [ 
@@ -127,77 +127,4 @@ app.listen(port, function() {
 // ],
 // "saison" : "dessert",
 // "icon" : "https://image.flaticon.com/icons/svg/1375/1375194.svg"
-=======
-// "_id" : ObjectId("5c12308ed5c25c06ca522680"),
-    // "title" : "Tarte poireaux lardons",
-    // "picture" : "https://i.ibb.co/6FDQYDf/Tarte-feuillete-e-1-part.jpg",
-    // "ingredients" : [ 
-    //     {
-    //         "name" : "poireaux",
-          
-    //     }, 
-    //     {
-    //         "name" : "lardons",
-          
-    //     }, 
-    //     {
-    //         "name" : "oeufs",
-            
-    //     }, 
-    //     {
-    //         "name" : "fromage rapé",
-            
-    //     }, 
-    //     {
-    //         "name" : "crême fraîche",
-       
-    //     }, 
-    //     {
-    //         "name" : "Sel, poivre et beaucoup de muscade"
-    //     }
-    // ],
-    // "quantity" : [
-    //                { 3 },
-    //                { 400 }
-    // ],
-    // "steps" : [ 
-    //     {
-    //         "name" : "Etape 1",
-    //         "description" : "Préchauffer le four à 210°C (thermostat 7)."
-    //     }, 
-    //     {
-    //         "name" : "Etape 2",
-    //         "description" : "Emincer les poireaux. Les faire dorer dans un peu de beurre (beaucoup de beurre!)."
-    //     }, 
-    //     {
-    //         "name" : "Etape 3",
-    //         "description" : "Faire dorer les lardons à part."
-    //     }, 
-    //     {
-    //         "name" : "Etape 4",
-    //         "description" : "Les égoutter soigneusement avant de les ajouter aux poireaux."
-    //     }, 
-    //     {
-    //         "name" : "Etape 5",
-    //         "description" : "Faire l'appareil: mêler les oeufs, la crême, le sel, le poivre et la muscade(miam)."
-    //     }, 
-    //     {
-    //         "name" : "Etape 6",
-    //         "description" : "Etaler les poireaux et les lardons sur la pâte."
-    //     }, 
-    //     {
-    //         "name" : "Etape 7",
-    //         "description" : "Parsemer de gruyère râpé, couvrir avec l'appareil."
-    //     }
-    // ],
-    // "temps" : [ 
-    //     {
-    //         "name" : "temps de cuisson",
-    //         "duree" : 25.0
-    //     }
-    // ],
-    // "legume" : "poireaux",
-    // "saison" : "automne",
-    // "icon" : "https://image.flaticon.com/icons/svg/1147/1147560.svg"
->>>>>>> Stashed changes
 

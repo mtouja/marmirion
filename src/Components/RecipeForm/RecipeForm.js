@@ -16,9 +16,8 @@ class RecipeForm extends Component {
       title: "",
       picture: "",
       ingredients: [{ name: ""}, { quantité: 0 }],
-      quantity: [{ name: 0}],
-      steps: [{ name: ""}],
-      cuisson:"",
+      steps: [{ name: ""}, { description: ""}],
+      temps: [{ name: ""}, { duree: 0 }, { thermostat: 0 }]
     }
   }
 
@@ -52,6 +51,14 @@ class RecipeForm extends Component {
     this.setState({ ingredients: newQuantity });
   }
 
+  handleChangeTemps = (idx) => (event) => {
+    const newTemps = this.state.temps.map((temp, sidx) => {
+      if (idx !== sidx) return temp;
+      return { ...temp, duree: event.target.value };
+    });
+    this.setState({ temps: newTemps });
+  }
+
   handleAddIngredient = () => {
     this.setState({ ingredients: this.state.ingredients.concat([{ name: '' }]) });
   }
@@ -71,7 +78,21 @@ class RecipeForm extends Component {
   }
 
   handleAddQuantity = (event) => {
-    this.setState({ quantity: this.state.quantity.concat([{quantity: 0 }]) });
+    this.setState({ quantité: this.state.ingredients.quantité })
+  }
+
+  // UNITY
+  // ------------
+  handleUnityChange = (idx) => (event) => {
+    const newUnity = this.state.ingredients.map((test, sidx) => {
+      if (idx !== sidx) return test;
+      return { ...test, unity: event.target.value };
+    });
+    this.setState({ ingredients: newUnity });
+  }
+
+  handleAddUnity = (event) => {
+    this.setState({ unity: this.state.ingredients.unity })
   }
 
   // RECIPE STEPS
@@ -95,19 +116,25 @@ class RecipeForm extends Component {
   handleAddField = () => {
     this.handleAddIngredient();
     this.handleAddQuantity();
+    this.handleAddUnity();
   }
+
+  // BAKING
+  // ------------
+  // handleBakingChange = (event) => {
+  //   this.setState({ duree: this.state.temps.duree })  
+  // }
 
   // SUBMIT FORM TO API
   // ------------
   handleSubmit = () => {
-    console.log(this.state.title,this.state.picture,this.state.ingredients,this.state.quantity, this.state.steps,this.state.cuisson)
+    console.log(this.state.title,this.state.picture,this.state.ingredients,this.state.steps,this.state.temps)
     axios.post("http://localhost:8000/recettes/new",{
       title: this.state.title,
       picture: this.state.picture,
       ingredients: this.state.ingredients,
-      quantity: this.state.quantity,
       steps: this.state.steps,
-      cuisson: this.state.cuisson
+      temps: this.state.temps
       })
     .then((res) => {
     console.log(res)
@@ -154,86 +181,59 @@ class RecipeForm extends Component {
                 <div className="text-center"> 
                   <Button outline color="primary" onClick={this.handleAddField} className="small addRecipeButton"></Button>
                 </div>
-                <Row>
-                  <Col md={6}>
+              <Row>
+                <Col md={4}>
+                {this.state.ingredients.map((ingredient, idx) => (
+                  <div className="step">
+                    <FormGroup>
+                      <Input
+                        type="text"
+                        placeholder={`Ingredient ${idx + 1}`}
+                        value={ingredient.name}
+                        onChange={this.handleIngredientNameChange(idx)}
+                        className="InputAddRecipe"
+                        name="ingredients"
+                      />
+                    </FormGroup>
+                    <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
+                      <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                    </a>
+                  </div>
+                  ))}
+                  </Col>
+                  <Col md={4}>
+                  {this.state.ingredients.map((ingredient, idx) => (
+                    <div className="step">
+                      <FormGroup>
+                        <Input
+                          type="number"
+                          placeholder="quantité"
+                          value={ingredient.quantité}
+                          onChange={this.handleQuantityChange(idx)}
+                          className="InputAddRecipe"
+                          name="quantity"
+                        />
+                      </FormGroup>
+                    </div>
+                  ))}
+                  </Col>
+                  <Col md={4}>
                   {this.state.ingredients.map((ingredient, idx) => (
                     <div className="step">
                       <FormGroup>
                         <Input
                           type="text"
-                          placeholder={`Ingredient ${idx + 1}`}
-                          value={ingredient.name}
-                          onChange={this.handleIngredientNameChange(idx)}
+                          placeholder="unité de mesure"
+                          value={ingredient.unity}
+                          onChange={this.handleUnityChange(idx)}
                           className="InputAddRecipe"
-                          name="ingredients"
+                          name="unity"
                         />
-                        <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
-                          <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
-                        </a>
                       </FormGroup>
                     </div>
-                    ))}
-                    </Col>
-                    <Col md={6}>
-                    {this.state.quantity.map((quanti, idx) => (
-                      <div className="step">
-                        <FormGroup>
-                          <Input
-                            type="text"
-                            placeholder="quantité"
-                            value={quanti.name}
-                            onChange={this.handleQuantityChange(idx)}
-                            className="InputAddRecipe"
-                            name="quantity"
-                          />
-                        </FormGroup>
-                      </div>
-                    ))}
-                    </Col>
-                  </Row>
-                {/* <h6 className="labelTitle text-uppercase text-center">quantité</h6> */}
-                {/* <div className="text-center"> 
-                  <Button outline color="primary" onClick={this.handleAddQuantity} className="small addRecipeButton"></Button>
-                </div> */}
-                {/* {this.state.quantity.map((quanti, idx) => (
-                  <div className="step"> */}
-                    {/* <Row> */}
-                      {/* <Col md={6}>
-                        <Input
-                          type="text"
-                          placeholder="0"
-                          value={quanti.name}
-                          onChange={this.handleQuantityChange(idx)}
-                          className="InputAddRecipe"
-                          name="quantity"
-                        /> */}
-                        {/* <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
-                          <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
-                //         </a> */}
-                {/* //       </Col>
-                //     </Row>
-                //   </div>
-                // ))} */}
-                {/* <h6 className="labelTitle text-uppercase text-center">quantité</h6>
-                <div className="text-center"> 
-                  <Button outline color="primary" onClick={this.handleAddQuantity} className="small addRecipeButton"></Button>
-                </div>
-                {this.state.quantity.map((quanti, idx) => (
-                  <div key={idx} className="step">
-                      <Row>
-                        <Col md={6}>
-                          <Input
-                            type="text"
-                            placeholder={`quantité ${idx + 1}`}
-                            value={quanti.name}
-                            onChange={this.handleQuantityChange(idx)}
-                            className="InputAddRecipe"
-                            name="quantity"
-                          />
-                        </Col>
-                      </Row>
-                    </div>
-                ))} */}
+                  ))}
+                  </Col>
+                </Row>
                 <h6 className="labelTitle text-uppercase text-center">saison</h6> 
                 <Row>
                   <Col md={3} className="text-center">
@@ -286,7 +286,7 @@ class RecipeForm extends Component {
                     <Input
                       type="textarea"
                       placeholder={`Etape ${idx + 1}`}
-                      value={step.name}
+                      value={step.description}
                       onChange={this.handleStepNameChange(idx)}
                       className="InputAddRecipe"
                     />
@@ -296,15 +296,33 @@ class RecipeForm extends Component {
                   </div>
                   ))}  
                   <h6 className="labelTitle text-uppercase text-center">cuisson</h6>
+                  
                   <Row>
                     <Col md={6}>
-                      <FormGroup>
-                        <Input type="text" name="text" id="recipeTitle" placeholder="temps de cuisson" className="field" />
-                      </FormGroup>
+                    {this.state.temps.map((temp, idx) => (
+                      <div className="step">
+                        {/* <FormGroup> */}
+                          <Input 
+                            key={idx}
+                            type="number" 
+                            name="temps" 
+                            id="recipeTitle" 
+                            placeholder="temps de cuisson"
+                            value={temp.duree} 
+                            onChange={this.handleChangeTemps(idx)}
+                            className="field" />
+                        {/* </FormGroup> */}
+                      </div>
+                    ))}
                     </Col>
                     <Col md={6}>
                       <FormGroup>
-                        <Input type="text" name="text" id="recipeTitle" placeholder="thermostat" className="field" />
+                        <Input 
+                          type="text" 
+                          name="thermostat" 
+                          id="recipeTitle" 
+                          placeholder="thermostat" 
+                          className="field" />
                       </FormGroup>
                     </Col>
                   </Row>
