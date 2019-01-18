@@ -15,9 +15,9 @@ class RecipeForm extends Component {
     this.state = {
       title: "",
       picture: "",
-      steps: [{ name: ""}],
+      steps: [{ name: ""}, { quantité: 0 }, { unity:"" }],
       ingredients: [{ name: ""}],
-      cuisson:""
+      temps:[{ name: "" }, { duree: 0 }]
     }
   }
 
@@ -41,6 +41,14 @@ class RecipeForm extends Component {
       return { ...ingredient, name: event.target.value };
     });
     this.setState({ ingredients: newIngredient });
+  }
+
+  handlequantityChange = (idx) => (event) => {
+    const newQuantity = this.state.ingredients.map((ingredient, sidx) => {
+      if (idx !== sidx) return ingredient;
+      return { ...ingredient, quantité: event.target.value };
+    });
+    this.setState({ ingredients: newQuantity });
   }
 
   handleAddIngredient = () => {

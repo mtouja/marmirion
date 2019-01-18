@@ -27,6 +27,7 @@ let recipeSchema = Schema({
   title:  String,
   picture: String,
   ingredients:Array,
+  quantity: Array,
   steps: Array,
   temps: Array,
   saison: String,
@@ -46,15 +47,21 @@ app.get('/recettes',(req, res) => {
 })
 
 app.post('/recettes/new',(req, res) => {
-  (`http://localhost:8000/recettes/new`)
   console.log(req.body);
   recipeModel.create({ 
     "title": req.body.title, 
     "picture": req.body.picture,
     "ingredients": req.body.ingredients, 
-    "steps": req.body.steps })
-  console.log(`${title}`);
+    "steps": req.body.steps,
+    "quantity":req.body.quantity
+  })
+  console.log(`${req.body.ingredients.name}`);
 });
+
+
+
+
+
 
 
 
@@ -62,3 +69,61 @@ app.post('/recettes/new',(req, res) => {
 //  LISTEN
 app.listen(port, function() {
 })
+
+// "title" : "Fondant au chocolat",
+// "picture" : "https://i.ibb.co/fpZbHW5/moelleux-emilie.jpg",
+// "ingredients" : [ 
+//     {
+//         "name" : "oeufs",
+//         "quantité" : 3,
+//         "unity" : " "
+//     }, 
+//     {
+//         "name" : "beurre",
+//         "quantité" : 125,
+//         "unity" : "g"
+//     }, 
+//     {
+//         "name" : "sucre",
+//         "quantité" : 125,
+//         "unity" : "g"
+//     }, 
+//     {
+//         "name" : "chocolat",
+//         "quantité" : 1,
+//         "unity" : "plaquette"
+//     }, 
+//     {
+//         "name" : "farine",
+//         "quantité" : 3,
+//         "unity" : "cuillères à soupe"
+//     }
+// ],
+// "steps" : [ 
+//     {
+//         "name" : "Etape 1",
+//         "description" : "Mélanger les oeufs et le sucre jusqu'à ce que la préparation soit lisse."
+//     }, 
+//     {
+//         "name" : "Etape 2",
+//         "description" : "Faire fonde le chocolat et le beurre ensemble au bain-marie."
+//     }, 
+//     {
+//         "name" : "Etape 3",
+//         "description" : "Mélanger les deux préparation (beurre/chocolat dans la préparation oeufs/sucre)."
+//     }, 
+//     {
+//         "name" : "Etape 4",
+//         "description" : "Ajouter les 3 cuillères à soupe de farine."
+//     }
+// ],
+// "temps" : [ 
+//     {
+//         "name" : "temps de cuisson",
+//         "duree" : 20,
+//         "thermostat" : 180
+//     }
+// ],
+// "saison" : "dessert",
+// "icon" : "https://image.flaticon.com/icons/svg/1375/1375194.svg"
+
