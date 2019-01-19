@@ -17,6 +17,7 @@ function searchingFor(term, types) {
           results = true;
         }
       }
+      return false;
     })
     return results;
   }
@@ -39,7 +40,6 @@ class Recipes extends Component {
       this.setState({
           recipesArray: data
       })
-      console.log(this.state.recipesArray)
     })
   }
 
@@ -69,7 +69,7 @@ class Recipes extends Component {
         <Row>
           <Col xs={12} className="text-center">
             <div className="btn" onClick={this.handleChangeRecipeForm}> 
-              <img className="add-recipe-icon"src="https://image.flaticon.com/icons/svg/1102/1102445.svg"/>
+              <img className="add-recipe-icon"src="https://image.flaticon.com/icons/svg/1102/1102445.svg" alt="add recipe icon"/>
               <p className="text-uppercase add-recipe-text">ajouter une recette</p>
                 <RecipeForm 
                   recipeForm={this.state.recipeForm}

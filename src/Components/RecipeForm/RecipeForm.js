@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Label, Input,
+import { Form, Input,
          Modal, ModalBody, 
          Card, CardBody, 
          FormGroup, Button,
@@ -8,6 +8,15 @@ import { Form, Label, Input,
 import axios from 'axios';
 
 import './RecipeForm.css';
+
+export const saison = {
+  PRINTEMPS: "https://image.flaticon.com/icons/svg/186/186094.svg",
+  ETE: "https://image.flaticon.com/icons/svg/1375/1375195.svg",
+  AUTOMNE: "https://image.flaticon.com/icons/svg/1147/1147560.svg",
+  HIVER: "https://image.flaticon.com/icons/svg/1337/1337709.svg",
+  AUTRE: "https://image.flaticon.com/icons/svg/985/985542.svg",
+  DESSERT: "https://image.flaticon.com/icons/svg/1375/1375194.svg"
+}
 
 class RecipeForm extends Component {
   constructor(props) {
@@ -18,6 +27,7 @@ class RecipeForm extends Component {
       ingredients: [{ name: "",  quantité: 0 }],
       steps: [{ name: "", description: "" }],
       temps: [{ name: "", duree: 0, thermostat: 0 }],
+      saison:"",
     }
   }
 
@@ -131,7 +141,8 @@ class RecipeForm extends Component {
       picture: this.state.picture,
       ingredients: this.state.ingredients,
       steps: this.state.steps,
-      temps: this.state.temps
+      temps: this.state.temps,
+      saison: this.state.saison
       })
     .then((res) => {
     console.log(res)
@@ -165,7 +176,7 @@ class RecipeForm extends Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <h6 className="recipeTitle text-uppercase text-center"></h6>
+                  {/* <h6 className="recipeTitle text-uppercase text-center"></h6> */}
                   <Input 
                     type="url" 
                     title="picture" 
@@ -182,7 +193,7 @@ class RecipeForm extends Component {
               <Row md={12}>
                 <Col >
                 {this.state.ingredients.map((ingredient, idx) => (
-                  <div className="step">
+                  <div className="step" key={idx}>
                     <FormGroup>
                       <Input
                         key={idx}
@@ -199,7 +210,7 @@ class RecipeForm extends Component {
                   </Col>
                   <Col >
                   {this.state.ingredients.map((ingredient, idx) => (
-                    <div className="step">
+                    <div className="step" key={idx}>
                       <FormGroup>
                         <Input
                           key={idx}
@@ -216,7 +227,7 @@ class RecipeForm extends Component {
                   </Col>
                   <Col >
                   {this.state.ingredients.map((ingredient, idx) => (
-                    <div className="step">
+                    <div className="step" key={idx}>
                       <FormGroup>
                         <Input
                           key={idx}
@@ -228,8 +239,9 @@ class RecipeForm extends Component {
                           name="unity"
                         />
                       </FormGroup>
+                      {/* TODO button iso a */}
                       <a className="btn" onClick={this.handleRemoveIngredient(idx)} className="small float-right removeStepButton">
-                        <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                        <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton" alt="remove button"/>
                       </a>
                     </div>
                   ))}
@@ -239,34 +251,34 @@ class RecipeForm extends Component {
                 <Row md={12} className="d-flex justify-content-center">
                   <Button outline color="dark">
                     <Col className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/186/186094.svg" className="seasonIcon"/>
+                      <img src={saison.PRINTEMPS} className="seasonIcon" alt="season icon"/>
                     </Col>
                   </Button>
                   <Button outline color="dark">
                     <Col className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/1375/1375195.svg" className="seasonIcon"/>
+                      <img src={saison.ETE} className="seasonIcon" alt="season icon"/>
                     </Col>
                   </Button>
                   <Button outline color="dark">
                     <Col className="text-center">
-                      <img src="https://image.flaticon.com/icons/svg/1147/1147560.svg" className="seasonIcon"/>
+                      <img src={saison.AUTOMNE} className="seasonIcon" alt="season icon"/>
                     </Col>
                   </Button>
                   </Row>
                   <Row md={12} className="d-flex justify-content-center">
                     <Button outline color="dark">
                       <Col className="text-center">
-                        <img src="https://image.flaticon.com/icons/svg/1337/1337709.svg" className="seasonIcon"/>
+                        <img src={saison.HIVER} className="seasonIcon" alt="season icon"/>
                       </Col>
                     </Button>
                     <Button outline color="dark">
                       <Col className="text-center">
-                        <img src="https://image.flaticon.com/icons/svg/1375/1375194.svg" className="seasonIcon"/>
+                        <img src={saison.DESSERT} className="seasonIcon" alt="season icon"/>
                       </Col>
                     </Button>
                     <Button outline color="dark">
                       <Col className="text-center">
-                        <img src="https://image.flaticon.com/icons/svg/985/985542.svg" className="seasonIcon"/>
+                        <img src={saison.AUTRE} className="seasonIcon" alt="season icon"/>
                       </Col>
                     </Button>
                 </Row>          
@@ -275,7 +287,7 @@ class RecipeForm extends Component {
                   <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton"></Button>
                 </div>
                 {this.state.steps.map((step, idx) => (
-                  <div className="step">
+                  <div className="step" key={idx}>
                     <Input
                       key={idx}
                       type="textarea"
@@ -285,7 +297,7 @@ class RecipeForm extends Component {
                       className="InputAddRecipe"
                     />
                     <a className="btn" onClick={this.handleRemoveStep(idx)} className="small float-right removeStepButton">
-                      <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton"/>
+                      <img src="https://image.flaticon.com/icons/svg/1168/1168643.svg" className="removeStepButton" alt="remove button"/>
                     </a>
                   </div>
                   ))}  
@@ -294,7 +306,7 @@ class RecipeForm extends Component {
                     <Row>
                       <Col md={6}>
                       {this.state.temps.map((temp, idx) => (
-                        <div className="step">
+                        <div className="step" key={idx}>
                           <Input 
                             key={idx}
                             type="number" 
