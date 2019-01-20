@@ -11,7 +11,7 @@ import './RecipeForm.css';
 
 export const saison = {
   PRINTEMPS: { nom: "printemps", icone: "https://image.flaticon.com/icons/svg/186/186094.svg" },
-  ETE: { nom: "ete" , icone: "https://image.flaticon.com/icons/svg/1375/1375195.svg" },
+  ETE: { nom: "été" , icone: "https://image.flaticon.com/icons/svg/1375/1375195.svg" },
   AUTOMNE: { nom: "automne", icone: "https://image.flaticon.com/icons/svg/1147/1147560.svg" },
   HIVER: { nom: "hiver", icone: "https://image.flaticon.com/icons/svg/1337/1337709.svg" },
   AUTRE: { nom: "autre", icone: "https://image.flaticon.com/icons/svg/985/985542.svg" },
@@ -27,7 +27,7 @@ class RecipeForm extends Component {
       ingredients: [{ name: "",  quantité: 0 }],
       steps: [{ name: "", description: "" }],
       temps: [{ name: "", duree: 0, thermostat: 0 }],
-      saison:"",
+      saison: "",
     }
   }
 
@@ -46,6 +46,7 @@ class RecipeForm extends Component {
   // SAISON
   // ------------
   handleChangeSaison = (event) => {
+    console.log(event.target.value)
     this.setState({ saison: event.target.value})
   }
 
