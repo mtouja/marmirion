@@ -24,17 +24,17 @@ class Recette extends Component {
   iconSelect = (season) => {
     switch(season) {
       case 'printemps':
-        return saison.PRINTEMPS;
+        return saison.PRINTEMPS.icone;
       case 'été':
-        return saison.ETE;
+        return saison.ETE.icone;
       case 'automne':
-        return saison.AUTOMNE;
+        return saison.AUTOMNE.icone;
       case 'hiver':
-        return saison.HIVER;
+        return saison.HIVER.icone;
       case 'dessert':
-        return saison.DESSERT;
+        return saison.DESSERT.icone;
       default:
-        return saison.AUTRE;
+        return saison.AUTRE.icone;
     }
   }
 

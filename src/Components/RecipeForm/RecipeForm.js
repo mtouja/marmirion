@@ -10,12 +10,12 @@ import axios from 'axios';
 import './RecipeForm.css';
 
 export const saison = {
-  PRINTEMPS: "https://image.flaticon.com/icons/svg/186/186094.svg",
-  ETE: "https://image.flaticon.com/icons/svg/1375/1375195.svg",
-  AUTOMNE: "https://image.flaticon.com/icons/svg/1147/1147560.svg",
-  HIVER: "https://image.flaticon.com/icons/svg/1337/1337709.svg",
-  AUTRE: "https://image.flaticon.com/icons/svg/985/985542.svg",
-  DESSERT: "https://image.flaticon.com/icons/svg/1375/1375194.svg"
+  PRINTEMPS: { nom: "printemps", icone: "https://image.flaticon.com/icons/svg/186/186094.svg" },
+  ETE: { nom: "ete" , icone: "https://image.flaticon.com/icons/svg/1375/1375195.svg" },
+  AUTOMNE: { nom: "automne", icone: "https://image.flaticon.com/icons/svg/1147/1147560.svg" },
+  HIVER: { nom: "hiver", icone: "https://image.flaticon.com/icons/svg/1337/1337709.svg" },
+  AUTRE: { nom: "autre", icone: "https://image.flaticon.com/icons/svg/985/985542.svg" },
+  DESSERT: { nom: "dessert", icone: "https://image.flaticon.com/icons/svg/1375/1375194.svg" },
 }
 
 class RecipeForm extends Component {
@@ -41,6 +41,12 @@ class RecipeForm extends Component {
   // ------------
   handleChangePicture = (event) => {
     this.setState({ picture: event.target.value })
+  }
+
+  // SAISON
+  // ------------
+  handleChangeSaison = (event) => {
+    this.setState({ saison: event.target.value})
   }
 
   // INGREDIENTS 
@@ -135,22 +141,20 @@ class RecipeForm extends Component {
   // SUBMIT FORM TO API
   // ------------
   handleSubmit = () => {
-    console.log(this.state.title,this.state.picture,this.state.ingredients,this.state.steps,this.state.temps)
-    axios.post("http://localhost:8000/recettes/new",{
+    console.log(this.state.saison)
+    let data_to_submit = {
       title: this.state.title,
       picture: this.state.picture,
       ingredients: this.state.ingredients,
       steps: this.state.steps,
       temps: this.state.temps,
       saison: this.state.saison
-      })
-    .then((res) => {
-    console.log(res)
-    })
-    .catch((err) => {
-    console.log(err);
-    });
-}
+    };
+    axios.post(
+      "http://localhost:8000/recettes/new",
+      data_to_submit,
+    );
+  }
 
   render() {
     return (
@@ -176,7 +180,6 @@ class RecipeForm extends Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  {/* <h6 className="recipeTitle text-uppercase text-center"></h6> */}
                   <Input 
                     type="url" 
                     title="picture" 
@@ -248,44 +251,96 @@ class RecipeForm extends Component {
                   </Col>
                 </Row>
                 <h6 className="labelTitle text-uppercase text-center">categorie</h6> 
-                <Row md={12} className="d-flex justify-content-center">
-                  <Button outline color="dark">
+                <FormGroup 
+                  tag="fieldset"
+                  onChange={this.handleChangeSaison}>
+                  <Row md={12} className="d-flex justify-content-center">
                     <Col className="text-center">
-                      <img src={saison.PRINTEMPS} className="seasonIcon" alt="season icon"/>
+                      <div class="form-check form-check-inline">
+                        <FormGroup check>
+                          <Input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="inlineRadioOptions" 
+                            value={saison.PRINTEMPS.nom}
+                          />
+                        </FormGroup>
+                        <img src={saison.PRINTEMPS.icone} className="seasonIcon" alt="season icon"/>
+                      </div>
                     </Col>
-                  </Button>
-                  <Button outline color="dark">
                     <Col className="text-center">
-                      <img src={saison.ETE} className="seasonIcon" alt="season icon"/>
+                      <div class="form-check form-check-inline">
+                        <FormGroup check>
+                          <Input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="inlineRadioOptions" 
+                            value={saison.ETE.nom}
+                          />
+                        </FormGroup>
+                        <img src={saison.ETE.icone} className="seasonIcon" alt="season icon"/>
+                      </div>
                     </Col>
-                  </Button>
-                  <Button outline color="dark">
                     <Col className="text-center">
-                      <img src={saison.AUTOMNE} className="seasonIcon" alt="season icon"/>
+                      <div class="form-check form-check-inline">
+                        <FormGroup check>
+                          <Input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="inlineRadioOptions"  
+                            value={saison.AUTOMNE.nom}
+                          />
+                        </FormGroup>
+                        <img src={saison.AUTOMNE.icone} className="seasonIcon" alt="season icon"/>
+                      </div>
                     </Col>
-                  </Button>
                   </Row>
                   <Row md={12} className="d-flex justify-content-center">
-                    <Button outline color="dark">
-                      <Col className="text-center">
-                        <img src={saison.HIVER} className="seasonIcon" alt="season icon"/>
-                      </Col>
-                    </Button>
-                    <Button outline color="dark">
-                      <Col className="text-center">
-                        <img src={saison.DESSERT} className="seasonIcon" alt="season icon"/>
-                      </Col>
-                    </Button>
-                    <Button outline color="dark">
-                      <Col className="text-center">
-                        <img src={saison.AUTRE} className="seasonIcon" alt="season icon"/>
-                      </Col>
-                    </Button>
-                </Row>          
+                    <Col className="text-center">
+                      <div class="form-check form-check-inline">
+                        <FormGroup check>
+                          <Input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="inlineRadioOptions"  
+                            value={saison.HIVER.nom}
+                          />
+                        </FormGroup>
+                        <img src={saison.HIVER.icone} className="seasonIcon" alt="season icon"/>
+                      </div>
+                    </Col>
+                    <Col className="text-center">
+                      <div class="form-check form-check-inline">
+                        <FormGroup check>
+                          <Input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="inlineRadioOptions"  
+                            value={saison.DESSERT.nom}
+                          />
+                        </FormGroup>
+                        <img src={saison.DESSERT.icone} className="seasonIcon" alt="season icon"/>
+                      </div>
+                    </Col>
+                    <Col className="text-center">
+                      <div class="form-check form-check-inline">
+                        <FormGroup check>
+                          <Input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="inlineRadioOptions"  
+                            value={saison.AUTRE.nom}
+                          />
+                        </FormGroup>
+                        <img src={saison.AUTRE.icone} className="seasonIcon" alt="season icon"/>
+                      </div>
+                    </Col>
+                  </Row>
+                </FormGroup>          
                 <h6 className="labelTitle text-uppercase text-center">etapes de préparation</h6>
                 <div className="text-center">
                   <Button outline color="primary" onClick={this.handleAddStep} className="small addRecipeButton"></Button>
-                </div>
+                </div> 
                 {this.state.steps.map((step, idx) => (
                   <div className="step" key={idx}>
                     <Input
